@@ -1,11 +1,10 @@
 // CECS 282
 // Raymond An
 // Prog 3: Structs and Pointers
-// Due Date: 3/16/2020
+// Due Date: 3/25/2020
 
 #include <iostream>
 #include "myDate.hpp"
-#include <stdio.h>
 #include <string.h>
 #include <iomanip>
 using namespace std;
@@ -38,27 +37,34 @@ int main() {
     display(s1);
     
     cout << endl << "************** WELCOME! **************" << endl;
-    displayMenu();
+    //displayMenu();
     int choice = 0;
     while(choice != 6) {
+        cout << endl;
+        displayMenu();
         cout << endl << "Please enter your choice: ";
         cin >> choice;
         
         if(choice == 1) {
             sortByName(s1);
+            display(s1);
         }
         else if (choice == 2) {
             sortByID(s1);
+            display(s1);
         }
         else if(choice == 3) {
-            sortByGrade(s1);
+            sortByBday(s1);
+            display(s1);
         }
         else if(choice == 4) {
-            sortByBday(s1);
+            sortByGrade(s1);
+            display(s1);
         }
         else if(choice == 5) {
             sortByHometown(s1);
-        }
+            display(s1);
+            }
         else {
             break;
         }
@@ -69,8 +75,8 @@ int main() {
 void displayMenu() {
     cout << "1.) Display list sorted by Name" << endl;
     cout << "2.) Display list sorted by Student ID" << endl;
-    cout << "3.) Display list sorted by Grade" << endl;
-    cout << "4.) Display list sorted by Birthday" << endl;
+    cout << "3.) Display list sorted by Birthday" << endl;
+    cout << "4.) Display list sorted by Grade" << endl;
     cout << "5.) Display list sorted by Hometown" << endl;
     cout << "6.) Exit" << endl;
 }
@@ -96,8 +102,8 @@ myDate randomBDay() {
 
 void populate(Student *s[]) {
     char grades[10] = {'A', 'B', 'C', 'D', 'F', 'A', 'B', 'C', 'D', 'F'};
-    string ht[10] = {"Small", "Oatmeal", "Okay", "Booger Hole", "Mosquitoville",
-        "Ding Dong", "Paw Paw", "Normal", "Coupon", "Coward"};
+    string ht[10] = {"Small", "Oatmeal", "Xianmen", "Booger Hole", "Mosquitoville",
+        "Ding Dong", "Paw Paw", "Normal", "Coupon", "Zagazig"};
     srand(time(0));
     
     for(int i = 0; i < 10; i++) {
@@ -157,15 +163,9 @@ void sortByName(Student *s[]) {
             // if num = 0 then strings are equal
             int num = strcmp(s[i]->name, s[i+1]->name);
             if(num > 0) {
-                swap(s[i]->name, s[i+1]->name);
+                swap(s[i], s[i+1]);
             }
         }
-    }
-    
-    cout << "Name" << endl
-         << "----" << endl;
-    for(int i = 0; i < 10; i++) {
-        cout << s[i]->name << endl;
     }
 }
 
@@ -174,15 +174,9 @@ void sortByID(Student *s[]) {
     for(int sorted = 0; sorted < 9; sorted++) {
         for (int i = 0; i < 10 - sorted - 1; i++) {
             if(s[i]->SID > s[i+1]->SID) {
-                swap(s[i]->SID, s[i+1]->SID);
+                swap(s[i], s[i+1]);
             }
         }
-    }
-    
-    cout << "Student ID" << endl
-         << "----------" << endl;
-    for(int i = 0; i < 10; i++) {
-        cout << s[i]->SID << endl;
     }
 }
 
@@ -191,15 +185,10 @@ void sortByGrade(Student *s[]) {
     for(int sorted = 0; sorted < 9; sorted++) {
         for (int i = 0; i < 10 - sorted - 1; i++) {
             if(s[i]->grade > s[i+1]->grade) {
-                swap(s[i]->grade, s[i+1]->grade);
+                //swap(s[i]->grade, s[i+1]->grade);
+                swap(s[i], s[i+1]);
             }
         }
-    }
-    
-    cout << "Grade" << endl
-         << "-----" << endl;
-    for(int i = 0; i < 10; i++) {
-        cout << s[i]->grade << endl;
     }
 }
 
@@ -212,15 +201,9 @@ void sortByBday(Student *s[]) {
             int jd2 = s[i+1]->bday.Greg2Julian(s[i+1]->bday.getMonth(), s[i+1]->bday.getDay(), s[i+1]->bday.getYear());
             // if s[i] > s[i+1] then swap bdays
             if(jd1 > jd2) {
-                swap(s[i]->bday, s[i+1]->bday);
+                swap(s[i], s[i+1]);
             }
         }
-    }
-    
-    cout << "Birthday" << endl
-         << "--------" << endl;
-    for(int i = 0; i < 10; i++) {
-        cout << s[i]->bday.toString() << endl;
     }
 }
 
@@ -229,14 +212,8 @@ void sortByHometown(Student *s[]) {
     for(int sorted = 0; sorted < 9; sorted++) {
         for (int i = 0; i < 10 - sorted - 1; i++) {
             if(s[i]->homeTown > s[i+1]->homeTown) {
-                swap(s[i]->homeTown, s[i+1]->homeTown);
+                swap(s[i], s[i+1]);
             }
         }
-    }
-    
-    cout << "Hometown" << endl
-         << "--------" << endl;
-    for(int i = 0; i < 10; i++) {
-        cout << s[i]->homeTown << endl;
     }
 }
